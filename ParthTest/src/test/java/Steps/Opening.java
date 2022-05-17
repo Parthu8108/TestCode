@@ -23,6 +23,9 @@ public class Opening
 	public By ASSERTPRODUCTPHONE = By.xpath("//*[@id=\"tbodyid\"]/h2");
 	public By ASSERTPRODUCTLAPTOP = By.xpath("/html/body/div[5]/div/div[2]/h2");
 	public By ASSERTPRODUCTMONITOR = By.xpath("//*[@id=\"tbodyid\"]/h2");
+	public By ASSERTPURCHASECHECK = By.xpath("/html/body/div[10]/h2");
+	
+	
 
 
 
@@ -34,6 +37,9 @@ public class Opening
 	public String LaptopTextActual;
 	public String MonitorTextExpected;
 	public String MonitorTextActual;
+	public String PurchaseExpected;
+	public String PurchaseActual;
+	
 
 	WebDriver driver = null;
 
@@ -53,11 +59,13 @@ public class Opening
 	public void user_views_details_of_product()throws InterruptedException {
 		//View phone details
 		WebElement shop =driver.findElement(PHONE);
+		//getting phone text from home page
 		PhoneTextExpected = driver.findElement(PHONE).getText();
 		shop.click();
 		Thread.sleep(4000);
 
 		//Checking whether the phone details showing is of the phone selected.
+		//getting phone text from details page
 		PhoneTextActual = driver.findElement(ASSERTPRODUCTPHONE).getText();
 		Assert.assertEquals(PhoneTextExpected, PhoneTextActual);
 		System.out.println(PhoneTextActual);
@@ -86,12 +94,15 @@ public class Opening
 
 		//View laptop details
 		WebElement laptop =driver.findElement(LAPTOP);
+		
+		//getting laptop name from home page
 		LaptopTextExpected = driver.findElement(LAPTOP).getText();
 		laptop.click();
 		Thread.sleep(4000);
 
 
 		//Checking whether the laptop details showing is of the laptop selected.
+		//getting laptop name from details page
 		LaptopTextActual = driver.findElement(ASSERTPRODUCTPHONE).getText();
 		Assert.assertEquals(LaptopTextExpected, LaptopTextActual);
 		System.out.println(LaptopTextActual);
@@ -118,12 +129,15 @@ public class Opening
 
 		//View monitor details
 		WebElement monitor =driver.findElement(MONITOR);
+		
+		//getting monitor name from home page
 		MonitorTextExpected = driver.findElement(MONITOR).getText();
 		monitor.click();
 		Thread.sleep(4000);
 
 
 		//Checking whether the monitor details showing is of the monitor selected.
+		//getting monitor name from details page
 		MonitorTextActual = driver.findElement(ASSERTPRODUCTMONITOR).getText();
 		Assert.assertEquals(MonitorTextExpected, MonitorTextActual);
 		System.out.println(MonitorTextActual);
@@ -172,6 +186,13 @@ public class Opening
 		WebElement purchase =driver.findElement(By.xpath("//*[@id=\"orderModal\"]/div/div/div[3]/button[2]"));
 		purchase.click();
 		Thread.sleep(2000);
+		
+		PurchaseExpected = "Thank you for your purchase!";
+		PurchaseActual = driver.findElement(ASSERTPURCHASECHECK).getText();
+		Assert.assertEquals(PurchaseExpected, PurchaseActual);
+		System.out.println(PurchaseActual);
+		
+		
 		WebElement okay =driver.findElement(By.xpath("/html/body/div[10]/div[7]/div/button"));
 		okay.click();
 		Thread.sleep(2000);
